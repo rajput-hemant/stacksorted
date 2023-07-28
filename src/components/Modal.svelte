@@ -5,9 +5,13 @@
 	import Code from './icons/code.svelte';
 	import ExternelLink from './icons/externel-link.svelte';
 	import { siteConfig } from '$lib/site-config';
+	import Previous from './icons/previous.svelte';
+	import Next from './icons/next.svelte';
 
 	export let showModal: boolean;
 	export let closeModal: () => void;
+	export let prevModal: () => void;
+	export let nextModal: () => void;
 	export let website: Category;
 
 	let modal: HTMLDialogElement;
@@ -44,10 +48,28 @@
 			{/if}
 		</h2>
 
-		<button
-			class="cursor-pointer rounded-md bg-white/20 px-2 py-1 font-medium outline-none transition-colors duration-200 hover:bg-primary hover:text-background"
-			on:click={closeModal_}>esc</button
-		>
+		<div class="flex gap-2">
+			<button
+				class="cursor-pointer rounded-md bg-white/20 p-1 font-medium outline-none transition-colors duration-200 hover:bg-primary hover:text-background"
+				on:click={prevModal}
+			>
+				<svelte:component this={Previous} />
+			</button>
+
+			<button
+				class="cursor-pointer rounded-md bg-white/20 p-1 font-medium outline-none transition-colors duration-200 hover:bg-primary hover:text-background"
+				on:click={nextModal}
+			>
+				<svelte:component this={Next} />
+			</button>
+
+			<button
+				class="cursor-pointer rounded-md bg-white/20 px-2 py-1 font-medium outline-none transition-colors duration-200 hover:bg-primary hover:text-background"
+				on:click={closeModal_}
+			>
+				esc
+			</button>
+		</div>
 	</div>
 
 	<img

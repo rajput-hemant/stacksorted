@@ -50,6 +50,31 @@
 		showModal = false;
 		history.pushState(null, '', `/${category}`);
 	}
+
+	function prevModal() {
+		const index = websiteData[category].findIndex((w) => w.name === website.name);
+
+		// website =
+		// 	websiteData[category][
+		// 		(index - 1 + websiteData[category].length) % websiteData[category].length
+		// 	];
+
+		if (index > 0) {
+			website = websiteData[category][index - 1];
+		} else {
+			website = websiteData[category][websiteData[category].length - 1];
+		}
+	}
+
+	function nextModal() {
+		const index = websiteData[category].findIndex((w) => w.name === website.name);
+
+		if (index < websiteData[category].length - 1) {
+			website = websiteData[category][index + 1];
+		} else {
+			website = websiteData[category][0];
+		}
+	}
 </script>
 
 <main class="w-full py-2.5 sm:w-[85%]">
@@ -66,11 +91,16 @@
 				<div
 					class="absolute inset-[1px] z-[2] flex flex-col gap-2.5 rounded-xl bg-background p-2.5"
 				>
-					<div class="h-full w-full overflow-hidden rounded-md">
+					<div class="relative h-full w-full overflow-hidden rounded-md">
 						<img
 							src={website.image}
 							alt={website.name}
 							class="h-full w-full rounded-md object-cover transition-transform duration-300 group-hover:scale-105"
+						/>
+
+						<!-- skeleton loading -->
+						<div
+							class="absolute inset-0 -z-10 h-full w-full animate-pulse rounded-md bg-white/10"
 						/>
 					</div>
 
@@ -108,7 +138,7 @@
 		{/each}
 	</div>
 
-	<Modal {showModal} {closeModal} {website} />
+	<Modal {showModal} {closeModal} {website} {nextModal} {prevModal} />
 </main>
 
 <style>
